@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三清道祖 · 道殿</title>
+<style>
+  body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#08080a; color:#d8d0c0; font-family:"Noto Serif SC",serif; text-align:center; padding:40px 20px; box-sizing:border-box; overflow:hidden; }
+  .taiji { font-size:3rem; margin-bottom:16px; animation: spin 24s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  h1 { font-weight:400; letter-spacing:0.3em; font-size:1.4rem; margin-bottom:8px; }
+  .sub { color:#6a6458; font-size:0.85rem; }
+
+  .incense { display:flex; gap:40px; margin:36px 0 28px; align-items:flex-end; height:100px; }
+  .stick { width:2px; height:70px; background:linear-gradient(to top,#3a3028,#8a7a60); position:relative; transform-origin:bottom center; }
+  .stick::before { content:''; position:absolute; top:-2px; left:-1px; width:4px; height:4px; border-radius:50%; background:#c08040; box-shadow:0 0 8px 4px rgba(200,120,40,0.5); animation: ember 2s ease-in-out infinite; }
+  .smoke { position:absolute; top:-40px; left:-8px; width:18px; height:40px; background:radial-gradient(ellipse at bottom, rgba(180,170,150,0.25), transparent 70%); animation: rise 3s ease-out infinite; }
+  .stick:nth-child(1) { animation-delay:0s; }
+  .stick:nth-child(2) { animation-delay:.6s; }
+  .stick:nth-child(3) { animation-delay:1.2s; }
+  @keyframes ember { 0%,100%{opacity:.7} 50%{opacity:1} }
+  @keyframes rise { 0%{opacity:0.5; transform:translateY(0) scaleX(1)} 100%{opacity:0; transform:translateY(-60px) scaleX(2)} }
+
+  button { background:none; border:1px solid #3a3428; color:#b8b0a0; padding:12px 28px; border-radius:24px; cursor:pointer; font-family:inherit; letter-spacing:0.15em; margin-top:8px; }
+  a.back { margin-top:32px; color:#5a5448; text-decoration:none; font-size:0.85rem; }
+</style>
+</head>
+<body>
+  <div class="taiji">☯</div>
+  <h1>三 清 道 祖</h1>
+  <p class="sub">三炷清香 · 道法自然</p>
+
+  <div class="incense">
+    <div class="stick"><div class="smoke"></div></div>
+    <div class="stick"><div class="smoke"></div></div>
+    <div class="stick"><div class="smoke"></div></div>
+  </div>
+
+  <button id="musicBtn">▶ 播放仙乐</button>
+  <a class="back" href="index.html">← 返回</a>
+
+<script>
+const music = new Audio('https://m.aigei.com/src/aud/mp3/4d/4d3a7e6c1b8f4a0d9e2c5b7a1f3e6d8c.mp3');
+music.loop = true;
+music.volume = 0.35;
+
+// 尝试自动播放
+music.play().then(()=>{
+  document.getElementById('musicBtn').textContent = '⏸ 暂停仙乐';
+}).catch(()=>{});
+
+let playing = true;
+document.getElementById('musicBtn').addEventListener('click', function(){
+  if (playing) { music.pause(); this.textContent = '▶ 播放仙乐'; playing=false; }
+  else { music.play().catch(()=>{}); this.textContent = '⏸ 暂停仙乐'; playing=true; }
+});
+</script>
+</body>
+</html>

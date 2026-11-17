@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿弥陀佛 · 大雄宝殿</title>
+<style>
+  body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#0b0a08; color:#d8d0c0; font-family:"Noto Serif SC",serif; text-align:center; padding:40px 20px; box-sizing:border-box; }
+  .lotus { font-size:3rem; margin-bottom:20px; }
+  h1 { font-weight:400; letter-spacing:0.3em; font-size:1.4rem; }
+  .hint { color:#6a6458; margin-top:12px; font-size:0.85rem; }
+  .wooden-fish { margin-top:36px; width:100px; height:100px; border-radius:50%; border:1px solid #3a3428; background:#141210; display:flex; align-items:center; justify-content:center; font-size:2rem; cursor:pointer; user-select:none; transition:transform .08s; }
+  .wooden-fish:active { transform:scale(0.92); }
+  .controls { margin-top:24px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  button { background:none; border:1px solid #3a3428; color:#b8b0a0; padding:10px 22px; border-radius:20px; cursor:pointer; font-family:inherit; letter-spacing:0.1em; }
+  button.active { border-color:#8a7a50; color:#d8c8a0; }
+  a.back { margin-top:40px; color:#5a5448; text-decoration:none; font-size:0.85rem; }
+</style>
+</head>
+<body>
+  <div class="lotus">🪷</div>
+  <h1>大 雄 宝 殿</h1>
+  <p class="hint">轻触木鱼，一声一息</p>
+  <div class="wooden-fish" id="fish">🪵</div>
+  <div class="controls">
+    <button id="loopBtn">循环木鱼</button>
+  </div>
+  <a class="back" href="index.html">← 返回</a>
+
+<script>
+const fishSound = new Audio('https://4284.kstore.space/soun-effect/wooden-fish.wav');
+fishSound.preload = 'auto';
+
+let loopTimer = null;
+let looping = false;
+
+function playOnce() {
+  fishSound.currentTime = 0;
+  fishSound.play().catch(()=>{});
+}
+
+document.getElementById('fish').addEventListener('click', playOnce);
+
+document.getElementById('loopBtn').addEventListener('click', function() {
+  if (looping) {
+    clearInterval(loopTimer);
+    looping = false;
+    this.textContent = '循环木鱼';
+    this.classList.remove('active');
+  } else {
+    playOnce();
+    loopTimer = setInterval(playOnce, 2200);
+    looping = true;
+    this.textContent = '停止木鱼';
+    this.classList.add('active');
+  }
+});
+</script>
+</body>
+</html>
